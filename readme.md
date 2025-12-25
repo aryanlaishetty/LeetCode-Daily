@@ -1,4 +1,2 @@
 ﻿# LeetCode Daily
-Consistently solving at least one Data Structures and Algorithms problem every day to strengthen problem-solving skills. This repository documents my daily progress, solutions, and learning journey.
-
-
+This repository includes my LeetCode solutions for Data Structures and Algorithms problems. It serves as a log of my practice.
