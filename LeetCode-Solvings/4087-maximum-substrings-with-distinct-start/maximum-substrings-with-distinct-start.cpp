@@ -1,12 +1,7 @@
 class Solution {
 public:
     int maxDistinct(string s) {
-        unordered_set<char> uniSet;
-
-        for(int i=0; i<s.size(); i++) {
-            uniSet.insert(s[i]);
-        }
-
+        unordered_set<char> uniSet(s.begin(), s.end());
         return uniSet.size();
     }
 };
