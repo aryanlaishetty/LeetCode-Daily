@@ -2,8 +2,8 @@ class Solution {
 public:
     int maxFreqSum(string s) {
 
-        unordered_map<int, int> vowsMap;
-        unordered_map<int, int> consMap;
+        unordered_map<char, int> vowsMap;
+        unordered_map<char, int> consMap;
         
         for(int i=0; i<s.size(); i++) {
             if(s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') {
@@ -21,8 +21,8 @@ public:
             }
         }
 
-        priority_queue<pair<int, int>> vowsPq;
-        priority_queue<pair<int, int>> consPq;
+        priority_queue<pair<int, char>> vowsPq;
+        priority_queue<pair<int, char>> consPq;
 
         int ans = 0;
 
