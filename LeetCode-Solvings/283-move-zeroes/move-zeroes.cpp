@@ -1,28 +1,27 @@
 class Solution {
 public:
-    //brute force approach
-    //tc = O(2n)
-    //sc = O(n-k), k = no. of non zeros
+    //Optimal - 2 pointer approach
+    //tc = O(n), array traversed only onced
+    //sc = O(1), No extra space is used
     void moveZeroes(vector<int>& nums) {
         int n = nums.size();
 
-        //copy non zeroes in temp
-        vector<int> temp;
+        int j = -1;
         for(int i=0; i<n; i++) {
-            if(nums[i] != 0) {
-                temp.push_back(nums[i]);
+            if(nums[i] == 0) {
+                j = i;  //Here, j points at element 0
+                break;
             }
         }
 
-        //overwrite nums with temp
-        int k = temp.size();
-        for(int i=0; i<k; i++) {
-            nums[i] = temp[i];
-        }
+        if(j == -1) return; //if no zeroes exist in nums
 
-        //overwrite remaining index with 0
-        for(int i=k; i<n; i++) {
-            nums[i] = 0;
-        }
+        for(int i=j+1; i<n; i++) {
+            if(nums[i] != 0) {  //as j is non zero
+                swap(nums[i], nums[j]); //swap non zero element with zero element
+                j++;
+            }
+        } 
+        
     }
 };
