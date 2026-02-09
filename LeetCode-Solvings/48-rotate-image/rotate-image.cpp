@@ -1,5 +1,8 @@
 class Solution {
 public:
+    // Optimal Approach
+    // tc = O(n/2 * n/2 + n * n/2)
+    // sc = O(1)
     void rotate(vector<vector<int>>& matrix) {
         //This is solved by first transposing the matrix and then reversing the elements in each row
 
