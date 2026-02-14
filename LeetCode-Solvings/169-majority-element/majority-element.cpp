@@ -1,21 +1,27 @@
 class Solution {
 public:
+    //Optimal Approach - Moore's Voting Algorithm
+    //Tc = O(n) + O(n)
+    //Sc = O(1)
     int majorityElement(vector<int> nums) {
-        unordered_map<int, int> m;  //<nums[i], frequence>
+        int count = 0, el;
 
         for(int i=0; i<nums.size(); i++) {
-            if(m.count(nums[i])) {
-                m[nums[i]]++;
+            if(count == 0) {
+                count = 1;
+                el = nums[i];
+            } else if(nums[i] == el) {
+                count++;
             } else {
-                m[nums[i]] = 1;
+                count--;
             }
         }
 
-        for(pair<int, int> p : m) {     //<key=nums[i], freq>
-            if(p.second > nums.size()/2) {
-                return p.first;
-            }
+        int againCount = 0;
+        for(int i=0; i<nums.size(); i++) {
+            if(nums[i] == el) againCount++;
         }
-        return -1;
+
+        return againCount > nums.size()/2 ? el : -1;
     }
 };
