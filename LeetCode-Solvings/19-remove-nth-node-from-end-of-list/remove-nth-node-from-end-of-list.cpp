@@ -10,47 +10,31 @@
  */
 class Solution {
 public:
-    //Brute Force Approach
-    //tc = O(size + size)
+    //Optimal Solution - Using slow and fast pointers
+    //tc = O(size)
     //sc = O(1)
-    int getSize(ListNode* head) {
-        int count = 0;
-        while(head != NULL) {
-            count++;
-            head = head->next;
-        }
-
-        return count;
-    }
-
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        int size = getSize(head);
+        ListNode* fast = head;
+        for(int i=1; i<=n; i++) fast = fast->next;
 
-        if(size == n) {
+        if(fast == NULL) {  //edge case
             ListNode* newHead = head->next;
             head->next = NULL;
             delete(head);
             return newHead;
         }
 
-        int forwardN = size - n;
-
-        ListNode* temp = head;
-        while(temp != NULL) {
-            forwardN--;
-
-            if(forwardN == 0) {
-                break;
-            }
-
-            temp = temp->next;
+        ListNode* slow = head;
+        while(fast->next != NULL) {
+            fast = fast->next;
+            slow = slow->next;
         }
 
-        ListNode* delNode = temp->next;
-        temp->next = temp->next->next;
+        ListNode* delNode = slow->next;
+        slow->next = slow->next->next;
         delNode->next = NULL;
         delete(delNode);
-        
+
         return head;
     }
 };
