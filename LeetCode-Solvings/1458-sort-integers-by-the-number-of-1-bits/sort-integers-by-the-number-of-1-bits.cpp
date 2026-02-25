@@ -1,24 +1,20 @@
 class Solution {
 public:
-    //Bruteforce approach, store counts of bits of each element by making pair of both and sorting them in ascending order, can also use priority queue to get pair which has smallest number of bits as top or you can use simple vector of pairs it wont make much difference in tc and sc
-    //tc = O(n + nlogn + n)
-    //sc = O(2*n)
+    //Optimal Approach - customizing inbuilt sort function
+    //tc = O(n * log n)
+    //sc = O(log n)
     vector<int> sortByBits(vector<int>& arr) {
-        vector<pair<int, int>> kCounts;
 
-        for(int i=0; i<arr.size(); i++) {
-            int num = arr[i];
+        sort(arr.begin(), arr.end() , [] (int a, int b){
 
-            int k = __builtin_popcount(num);
+            int countA = __builtin_popcount(a);
+            int countB = __builtin_popcount(b);
 
-            kCounts.push_back(make_pair(k, num));
-        }
+            if(countA == countB) return a<b;
 
-        sort(kCounts.begin(), kCounts.end());
+            return countA<countB;
 
-        for(int i=0; i<kCounts.size(); i++) {
-            arr[i] = kCounts[i].second;
-        }
+        });
 
         return arr;
     }
