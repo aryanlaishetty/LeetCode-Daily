@@ -1,18 +1,15 @@
 class Solution {
 public:
-    //brute force approach
+    //better approach
     //tc = O(n + n + n)
-    //sc = O(n + n)
+    //sc = O(n)
     int trap(vector<int>& height) {
         int n = height.size();
-        int leftMax[n], rightMax[n];
 
-        leftMax[0] = height[0];
+        int leftMax = height[0];
+
+        int rightMax[n];
         rightMax[n-1] = height[n-1];
-
-        for(int i=1; i<n; i++) {
-            leftMax[i] = max(leftMax[i-1], height[i-1]);
-        }
 
         for(int i=n-2; i>=0; i--) {
             rightMax[i] = max(rightMax[i+1], height[i+1]);
@@ -20,11 +17,13 @@ public:
 
         int waterTrapped=0;
         for(int i=0; i<n; i++) {
-            int currWater = min(leftMax[i], rightMax[i]) - height[i];
+            int currWater = min(leftMax, rightMax[i]) - height[i];
             
             if(currWater > 0) {
                 waterTrapped += currWater;
             }
+
+            leftMax = max(leftMax, height[i]);  //remembering updating leftMax everytime  
         }
 
         return waterTrapped;
