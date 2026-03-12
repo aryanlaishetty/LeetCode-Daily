@@ -1,29 +1,30 @@
 class Solution {
 public:
-    //better approach
-    //tc = O(n + n + n)
-    //sc = O(n)
+    //Optimal approach
+    //tc = O(n)
+    //sc = O(1)
     int trap(vector<int>& height) {
-        int n = height.size();
+        int l = 0, r = height.size()-1;
+        int leftMax = 0, rightMax = 0, waterTrapped = 0;
 
-        int leftMax = height[0];
+        //we only need min(leftMax and rightMax) not both
 
-        int rightMax[n];
-        rightMax[n-1] = height[n-1];
-
-        for(int i=n-2; i>=0; i--) {
-            rightMax[i] = max(rightMax[i+1], height[i+1]);
-        }
-
-        int waterTrapped=0;
-        for(int i=0; i<n; i++) {
-            int currWater = min(leftMax, rightMax[i]) - height[i];
-            
-            if(currWater > 0) {
-                waterTrapped += currWater;
+        while(l < r) {
+            if(height[l] <= height[r]) {
+                if(leftMax > height[l]) {
+                    waterTrapped += (leftMax - height[l]);
+                } else {
+                    leftMax = height[l];
+                }
+                l = l + 1;
+            } else {
+                if(rightMax > height[r]) {
+                    waterTrapped += (rightMax - height[r]);
+                } else {
+                    rightMax = height[r];
+                }
+                r = r - 1;
             }
-
-            leftMax = max(leftMax, height[i]);  //remembering updating leftMax everytime  
         }
 
         return waterTrapped;
