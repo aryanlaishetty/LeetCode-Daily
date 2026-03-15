@@ -1,5 +1,8 @@
 class Solution {
 public:
+    //brute force approach
+    //tc = O(n) + O(n*n)
+    //sc = O(m), m = allowed.size
     int countConsistentStrings(string allowed, vector<string>& words) {
         
         unordered_set<char> st;
