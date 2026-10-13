@@ -1,0 +1,23 @@
+#include <numeric>
+using namespace std;
+
+class Solution {
+public:
+    //tc = O(2*n)
+    //sc = O(1)
+    int pivotIndex(vector<int>& nums) {
+        int leftSum = 0, rightSum = accumulate(nums.begin(), nums.end(), 0);
+
+        for(int i=0; i<nums.size(); i++) {
+            rightSum -= nums[i];
+
+            if(leftSum == rightSum) {
+                return i;
+            }
+
+            leftSum += nums[i];
+        }
+
+        return -1;
+    }
+};
